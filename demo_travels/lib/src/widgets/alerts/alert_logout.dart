@@ -38,41 +38,53 @@ class AlertLogOut extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CustomText(
-                  fTxt: '¿Cerrar sesión?',
-                  fSize: 18.0,
-                  fColor: th.primaryColor,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const [
+                    Icon(Icons.message_outlined),
+                    SizedBox(width: 10.0),
+                    CustomText(
+                      fTxt: '¿Estas seguro que deseas\n salir de tu cuenta?',
+                      fSize: 17.0,
+                      fColor: Colors.black
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 25.0),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CustomButton(
-                      width: utils.porcientoW(Get.context, 6.0),
-                      bgColor: Colors.white,
-                      borderColor: th.primaryColor,
-                      childWidget: CustomText(
-                        fTxt: 'ATRÁS',
-                        fSize: 15.0,
-                        fColor: th.primaryColor,
-                      ), 
-                      btnFunction: fnCancel
-                    ),
-                    CustomButton(
-                      width: utils.porcientoW(Get.context, 6.0),
+                      height: utils.porcientoH(Get.context, 5.0),
+                      width: utils.porcientoW(Get.context, 7.0),
+                      borderRadius: 10.0,
                       bgColor: th.primaryColor,
                       childWidget: const CustomText(
-                        fTxt: 'ACEPTAR',
-                        fSize: 15.0), 
+                        fTxt: 'Aceptar',
+                        fSize: 16.0,
+                        fColor: Colors.white,
+                      ), 
                       btnFunction: fnDone
                     ),
+                    CustomButton(
+                      height: utils.porcientoH(Get.context, 5.0),
+                      width: utils.porcientoW(Get.context, 7.0),
+                      borderRadius: 10.0,
+                      bgColor: Colors.grey,
+                      childWidget: const CustomText(
+                        fTxt: 'Cancelar',
+                        fSize: 16.0,
+                        fColor: Colors.white,
+                      ), 
+                      btnFunction: fnCancel
+                    )
                   ]
                 )
               ]
             )
           ) 
         )
-      ),
+      )
     );
   }
 }

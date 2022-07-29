@@ -12,18 +12,17 @@ class CardIconClima extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: utils.porcientoW(Get.context, 21.0)),
+      margin: EdgeInsets.symmetric(horizontal: utils.porcientoW(Get.context, 22.0)),
       clipBehavior: Clip.antiAlias,
       elevation: 1.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [ 
-          Icon(
-            Icons.sunny_snowing,
-            color: Colors.yellow,
-            size: utils.porcientoW(Get.context, 25.0)
+        children: [
+          Image.network(
+            'http://openweathermap.org/img/wn/04d@2x.png',
+            height: utils.porcientoW(Get.context, 26.0)
           ),
           const Padding(
             padding: EdgeInsets.only(left: 15.0, bottom: 7.0),

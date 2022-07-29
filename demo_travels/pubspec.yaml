@@ -39,8 +39,9 @@ dependencies:
   animate_do             : ^2.1.0
   http                   : ^0.13.4
   shared_preferences     : ^2.0.15
-  image_picker           : ^0.8.5+3
-  path_provider          : ^2.0.11
+  card_swiper            : ^2.0.1
+  # image_picker           : ^0.8.5+3
+  # path_provider          : ^2.0.11
 
 dev_dependencies:
   flutter_test:
@@ -65,9 +66,17 @@ flutter:
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - assets/noticias/
+    - assets/destinos/
+    - assets/destinos/des1/
+    - assets/destinos/des2/
+    - assets/destinos/des3/
+    - assets/destinos/des4/
+    - assets/destinos/des1/carousel/
+    - assets/destinos/des2/carousel/
+    - assets/destinos/des3/carousel/
+    - assets/destinos/des4/carousel/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

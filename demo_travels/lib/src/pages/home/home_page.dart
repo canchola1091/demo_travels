@@ -1,8 +1,8 @@
 
 import 'package:demo_travels/src/controllers/home/home_controller.dart';
-import 'package:demo_travels/src/pages/home/clima_page.dart';
-import 'package:demo_travels/src/pages/home/destinos_page.dart';
-import 'package:demo_travels/src/pages/home/settings_page.dart';
+import 'package:demo_travels/src/pages/clima/clima_page.dart';
+import 'package:demo_travels/src/pages/destinos/destinos_page.dart';
+import 'package:demo_travels/src/pages/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/state_manager.dart';
 import 'package:demo_travels/src/theme/theme.dart' as th;
@@ -50,27 +50,30 @@ class HomePage extends StatelessWidget{
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.home_filled,
+                  Icons.home_outlined,
+                  size: 30.0,
                   color: (_.gSelectedIndex == 0)
-                  ? Colors.green 
+                  ? th.primaryColor
                   : Colors.black
                 ),
                 label: ''
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.book,
+                  Icons.book_outlined,
+                  size: 30.0,
                   color: (_.gSelectedIndex == 1)
-                  ? Colors.green 
+                  ? th.primaryColor
                   : Colors.black
                 ),
                 label: ''
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.person,
+                  Icons.person_outline,
+                  size: 30.0,
                   color: (_.gSelectedIndex == 2)
-                  ? Colors.green 
+                  ? th.primaryColor
                   : Colors.black
                 ),
                 label: ''

@@ -1,5 +1,5 @@
 
-import 'package:demo_travels/src/controllers/home/clima_controller.dart';
+import 'package:demo_travels/src/controllers/clima/clima_controller.dart';
 import 'package:demo_travels/src/widgets/clima/card_icon_clima.dart';
 import 'package:demo_travels/src/widgets/clima/container_noticia.dart';
 import 'package:demo_travels/src/widgets/text/custom_text.dart';
@@ -53,9 +53,10 @@ class ClimaPage extends StatelessWidget {
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
       child: Column(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          _headerClima()
+          _headerClima(),
+          _listNoticias()
         ]
       )
     );
@@ -103,10 +104,22 @@ class ClimaPage extends StatelessWidget {
           fWeight: 'Bold',
         ),
         const SizedBox(height: 20.0),
-        const ContainerNoticia(),
-        const ContainerNoticia(),
-        const ContainerNoticia(),
       ]
+    );
+  }
+
+  Widget _listNoticias() {
+    return Flexible(
+      child: ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+      itemCount: Noticias.listNoticias.length,
+      itemBuilder: (__, int index) => ContainerNoticia(
+          title: Noticias.listNoticias[index]["title"], 
+          description: Noticias.listNoticias[index]["description"], 
+          pathImg: Noticias.listNoticias[index]["img"],
+        )
+      )
     );
   }
 
