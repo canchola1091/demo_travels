@@ -16,6 +16,7 @@ class DestinosPage extends StatelessWidget {
     return GetBuilder<DestinosController>(
       init: DestinosController(),
       builder: (_) => Scaffold(
+        backgroundColor: th.bgScaffold,
         body: _body()
        )
     );

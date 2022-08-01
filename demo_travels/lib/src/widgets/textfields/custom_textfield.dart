@@ -82,7 +82,7 @@ class CustomTextField extends StatelessWidget {
           ),
         ),
         filled: true,
-        fillColor: Colors.white,
+        fillColor: Colors.grey.withOpacity(0.33),
         labelText: textLabel,
         labelStyle: TextStyle(
           fontFamily: 'Monserrat-Regular',
@@ -111,7 +111,7 @@ class CustomTextField extends StatelessWidget {
       maxLength: maxCaracteres,
       textAlign: txtAlign,
       onChanged: onChanged,
-      style: TextStyle( color: th.subTitleColor )
+      style: TextStyle( color: th.subTitleColor ),
     );
   }
 }

@@ -95,6 +95,18 @@ bool validateSpecialCharacter(String value){
 }
 
 //==========================================================
+/// HEADER WHIT TOKEN
+//==========================================================
+Map<String,String> authorization(String keyServer){
+  Map<String, String>  requestHeaders = {
+    "Accept": "application/json",
+    "content-type": "application/json; charset=utf-8",
+    "Authorization": "key=$keyServer"
+  };
+  return requestHeaders;
+}
+
+//==========================================================
 /// INFO MESSAGE
 //==========================================================
 void msginfo( msg ) => print('✅ '+ msg.toString() + ' ✅');

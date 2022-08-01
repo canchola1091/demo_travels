@@ -1,10 +1,13 @@
 
+import 'package:demo_travels/src/controllers/destinos/destinos_controller.dart';
 import 'package:demo_travels/src/widgets/destinos/card_destino.dart';
+import 'package:demo_travels/src/widgets/destinos/map_destino.dart';
 import 'package:demo_travels/src/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:demo_travels/src/utils/utils.dart' as utils;
 import 'package:demo_travels/src/theme/theme.dart' as th;
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
 
 class DetailDestinoPage extends StatelessWidget {
@@ -25,26 +28,29 @@ class DetailDestinoPage extends StatelessWidget {
   }
 
   Widget _body() {
-    return SafeArea(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _customAppBar(),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              physics: const BouncingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _nameandImgDestino(),
-                  _description() 
-                ]
+    return GetBuilder<DestinosController>(
+      init: DestinosController(),
+      builder: (_) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _customAppBar(),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    _nameandImgDestino(),
+                    _descriptionAndMap()
+                  ]
+                )
               )
             )
-          )
-        ]
-      )
+          ]
+        )
+      ),
     );
   }
 
@@ -120,7 +126,7 @@ class DetailDestinoPage extends StatelessWidget {
                   fSize: 14.0
                 )
               ]
-            )
+              )
             ]
           ),
 
@@ -164,7 +170,6 @@ class DetailDestinoPage extends StatelessWidget {
         pagination: const SwiperPagination(),
         outer: true,
         itemCount: Destinos.listDestinos[index]["carousel_img"].length,
-        // itemCount: 3,
         itemBuilder: (__, int i) => Container(
           clipBehavior: Clip.antiAlias,
           decoration: BoxDecoration(
@@ -182,54 +187,73 @@ class DetailDestinoPage extends StatelessWidget {
     );
   }
 
-  Widget _description() {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20.0),
-      padding: const EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0)
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-
-          const SizedBox(height: 10.0),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'Más información',
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color:  Colors.black.withOpacity(0.6),
-                  decoration: TextDecoration.underline
+  Widget _descriptionAndMap() {
+    return GetBuilder<DestinosController>(
+      id: 'map-destino',
+      builder: (_) => Container(
+        margin: const EdgeInsets.symmetric(vertical: 20.0),
+        padding: const EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0)
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+    
+            const SizedBox(height: 10.0),
+    
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: () => _.setViewMap(!_.gxViewMap),
+                  child: Text(
+                    'Más información',
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      color:  Colors.black.withOpacity(0.6),
+                      decoration: TextDecoration.underline
+                    )
+                  ),
+                ),
+                CustomText(
+                  fTxt: 'Visita el destino',
+                  fSize: 15.0,
+                  fColor: Colors.black.withOpacity(0.6),
                 )
-              ),
-              CustomText(
-                fTxt: 'Visita el destino',
-                fSize: 15.0,
-                fColor: Colors.black.withOpacity(0.6),
-              )
-            ]
-          ),
-          const SizedBox(height: 10.0),
-          CustomText(
-            fTxt: Destinos.listDestinos[index]["description"],
-            fSize: 16.0,
-            fColor: Colors.black.withOpacity(0.6),
-            fAlign: TextAlign.justify
-          ),
-          const SizedBox(height: 15.0),
-          CustomText(
-            fTxt: Destinos.listDestinos[index]["description"],
-            fSize: 16.0,
-            fColor: Colors.black.withOpacity(0.6),
-            fAlign: TextAlign.justify
-          ),
-        ]
+              ]
+            ),
+            const SizedBox(height: 10.0),
+            (_.gxViewMap)
+            ? _mapDestino()
+            : CustomText(
+              fTxt: Destinos.listDestinos[index]["description"],
+              fSize: 16.0,
+              fColor: Colors.black.withOpacity(0.6),
+              fAlign: TextAlign.justify
+            ),
+            const SizedBox(height: 15.0),
+            if(!_.gxViewMap) CustomText(
+              fTxt: Destinos.listDestinos[index]["description"],
+              fSize: 16.0,
+              fColor: Colors.black.withOpacity(0.6),
+              fAlign: TextAlign.justify
+            )
+          ]
+        )
+      ),
+    );
+  }
+
+  Widget _mapDestino() {
+    return SizedBox(
+      width: double.infinity,
+      height: utils.porcientoH(Get.context, 35.0),
+      child: MapDestino(
+        latitude: Destinos.listDestinos[index]["lat"],
+        longitude: Destinos.listDestinos[index]["long"],
       )
     );
   }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "623301867615",
+    "project_id": "demotravels-39d79",
+    "storage_bucket": "demotravels-39d79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623301867615:android:5a81c21572d6578f15c3ea",
+        "android_client_info": {
+          "package_name": "com.example.demo_travels"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623301867615-vmep435hhj088hmk3ac44jrvd3vaag0r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCpXFn2Pe3CITlxiDjr2jHBIYneaSfUw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623301867615-vmep435hhj088hmk3ac44jrvd3vaag0r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

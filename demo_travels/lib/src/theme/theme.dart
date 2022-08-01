@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:demo_travels/src/utils/utils.dart' as utils;
 
 final ThemeData theme = ThemeData.light().copyWith(
-  // scaffoldBackgroundColor: Colors.white,
-  scaffoldBackgroundColor: Colors.grey,
+  scaffoldBackgroundColor: Colors.white,
+  // scaffoldBackgroundColor: Colors.grey,
   appBarTheme: AppBarTheme(color: primaryColor),
   hintColor: subTitleColor,
   disabledColor: subTitleColor,

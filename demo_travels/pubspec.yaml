@@ -40,6 +40,12 @@ dependencies:
   http                   : ^0.13.4
   shared_preferences     : ^2.0.15
   card_swiper            : ^2.0.1
+  geolocator             : ^9.0.1
+  geocoding              : ^2.0.4
+  cached_network_image   : ^3.2.0
+  firebase_messaging     : ^11.2.10
+  firebase_core          : ^1.13.1
+  google_maps_flutter    : ^2.1.10
   # image_picker           : ^0.8.5+3
   # path_provider          : ^2.0.11
 

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:demo_travels/src/theme/theme.dart' as th;
 import 'package:demo_travels/src/utils/utils.dart' as utils;
+import 'package:http/http.dart';
 
 
 class ClimaPage extends StatelessWidget {
@@ -14,73 +15,78 @@ class ClimaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<Climacontroller>(
-      init: Climacontroller(),
-      builder: (_) => SafeArea(
-        bottom: false,
-        child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-            leading: IconButton(
-              icon: const Icon(Icons.menu, size: 35.0, color: Colors.black),
-              onPressed: () {}, 
-            ),
-            title: CustomText(
-              fTxt: 'Bienvenido Eduardo',
-              fSize: 16.0,
-              fColor: Colors.black.withOpacity(0.5),
-            ),
-            centerTitle: true,
-            actions: [
-              Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child: CircleAvatar(
-                  backgroundColor: th.primaryColor,
-                  child: const Icon(Icons.person, color: Colors.white),
-                ),
-              )
-            ]
+    return SafeArea(
+      bottom: false,
+      child: Scaffold(
+        backgroundColor: th.bgScaffold,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          leading: IconButton(
+            icon: const Icon(Icons.menu, size: 35.0, color: Colors.black),
+            onPressed: () {}, 
           ),
-          body: _body()
-        )
+          title: CustomText(
+            fTxt: 'Bienvenido Eduardo',
+            fSize: 16.0,
+            fColor: Colors.black.withOpacity(0.5),
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 10.0),
+              child: CircleAvatar(
+                backgroundColor: th.primaryColor,
+                child: const Icon(Icons.person, color: Colors.white),
+              ),
+            )
+          ]
+        ),
+        body:  _body()
       )
     );
   }
 
   Widget _body() {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _headerClima(),
-          _listNoticias()
-        ]
+    return GetBuilder<Climacontroller>(
+      init: Climacontroller(),
+      id: 'body-clima',
+      builder: (_) => (_.gxLocationLoaded)
+      ? SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+        child: 
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _headerClima(_.gxAddress),
+            _listNoticias()
+          ]
+        ) 
       )
+      : _locationLoading()
     );
   }
 
-  Widget _headerClima() {
+  Widget _headerClima(String _address) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             children: <TextSpan> [
-              TextSpan(
+              const TextSpan(
                 text: 'Al parecer estas en ',
                 style: TextStyle(
-                  fontSize: 17.0,
+                  fontSize: 15.0,
                   color: Colors.black
                 )
               ),
               TextSpan(
-                text: 'Querétaro, Centro',
-                style: TextStyle(
+                text: _address,
+                style: const TextStyle(
                   color: Colors.black, 
-                  fontSize: 17.0,
+                  fontSize: 15.0,
                   fontWeight: FontWeight.bold
                 )
               )
@@ -92,14 +98,14 @@ class ClimaPage extends StatelessWidget {
         const SizedBox(height: 30.0),
         const CustomText(
           fTxt: 'Mantente al día con las noticias de Querétaro', 
-          fSize: 17.0,
+          fSize: 15.0,
           fColor: Colors.black,
           fWeight: 'Bold',
         ),
         const SizedBox(height: 10.0),
         CustomText(
           fTxt: 'Actualmente la gente está comentando sobre estas\nnoticias', 
-          fSize: 14.0,
+          fSize: 13.0,
           fColor: Colors.black.withOpacity(0.5),
           fWeight: 'Bold',
         ),
@@ -119,6 +125,20 @@ class ClimaPage extends StatelessWidget {
           description: Noticias.listNoticias[index]["description"], 
           pathImg: Noticias.listNoticias[index]["img"],
         )
+      )
+    );
+  }
+
+  Widget _locationLoading() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: const [
+          CircularProgressIndicator(),
+          SizedBox(height: 20.0),
+          CustomText(fTxt: 'Obteniendo ubicación', fSize: 15.0)
+        ]
       )
     );
   }
