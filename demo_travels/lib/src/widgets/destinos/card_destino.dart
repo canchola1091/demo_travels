@@ -1,5 +1,4 @@
 
-import 'package:demo_travels/src/pages/destinos/detail_destino.dart';
 import 'package:demo_travels/src/widgets/buttons/custom_button.dart';
 import 'package:demo_travels/src/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +12,15 @@ class CardDestino extends StatelessWidget {
   final String description;
   final String pathImg;
   final int index;
+  final void Function() onClick;
 
   const CardDestino({
     Key? key,
     required this.title,
     required this.description,
     required this.pathImg,
-    required this.index
+    required this.index,
+    required this.onClick
   }) : super(key: key);
 
   @override
@@ -52,7 +53,7 @@ class CardDestino extends StatelessWidget {
           fSize: 15.0,
           fMaxLines: 1
         ),
-        
+
         trailing: SizedBox(
           height: utils.porcientoH(Get.context, 4.0),
           child: CustomButton(
@@ -64,17 +65,17 @@ class CardDestino extends StatelessWidget {
               fSize: 16.0,
               fColor: Colors.white,
             ),
-            btnFunction: () => Get.to( () => DetailDestinoPage(index: index) )
+            btnFunction: onClick
             )
           )
-      
+
       )
     );
   }
 }
 
 class Destinos {
-  
+
   static List<Map<String, dynamic>> listDestinos = [
     {
       "title": "Basílica de Guadalupe",
@@ -106,7 +107,7 @@ class Destinos {
       "long": -99.1461373
     },
 
-     {
+    {
       "title": "Museo Soumaya",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
       "img": "assets/destinos/des3/img_desti3.png",
@@ -135,7 +136,7 @@ class Destinos {
       "lat": 20.2076588,
       "long": -98.5490363
     },
-    
+
   ];
 
 

@@ -21,12 +21,11 @@ class ClimaServices {
       "lang" : "es",
       "units": "metric"
     };
-    print('--> Params $_params');
     final _url = Uri.https(_host, 'data/2.5/weather', _params);
     try {
       final _resp = await http.get( _url );
-      print('--> Resp: ${_resp.body}');
-      print('--> Status: ${_resp.statusCode}');
+      // print('--> Resp: ${_resp.body}');
+      // print('--> Status: ${_resp.statusCode}');
       if(_resp.statusCode == 200) {
         return climaModelFromJson(_resp.body);
       }else {
@@ -35,7 +34,6 @@ class ClimaServices {
       }
     } catch (e) {
       utils.msgerror('--> CATCH');
-      // return null;
     }
   }
 

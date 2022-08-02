@@ -32,4 +32,4 @@ class GlobalPreferences {
   // LOGIN
   bool get isFisrtLogin => _globalPreferences.getBool('isFisrtLogin') ?? true;
   set isFisrtLogin(bool value) => _globalPreferences.setBool('isFisrtLogin', value);
-} 
+}

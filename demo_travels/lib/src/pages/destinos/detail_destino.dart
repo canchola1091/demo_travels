@@ -11,7 +11,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:get/route_manager.dart';
 
 class DetailDestinoPage extends StatelessWidget {
-  
+
   final int index;
 
   const DetailDestinoPage({
@@ -24,7 +24,7 @@ class DetailDestinoPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: th.bgScaffold,
       body: _body()
-   );
+    );
   }
 
   Widget _body() {
@@ -93,75 +93,74 @@ class DetailDestinoPage extends StatelessWidget {
   }
 
   Widget _nameandImgDestino() {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 20.0),
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10.0)
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          
-          const SizedBox(height: 15.0),
+    return GetBuilder<DestinosController>(
+      builder: (_) => Container(
+        margin: const EdgeInsets.symmetric(vertical: 20.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0)
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
 
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomText(
-                fTxt: Destinos.listDestinos[index]["title"],
-                fSize: 16.0,
-                fWeight: 'Bold',
-              ),
-              const SizedBox(height: 7.0),
-              Row(
+            const SizedBox(height: 15.0),
+
+            Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.pin_drop, color: th.primaryColor),
-                const CustomText(
-                  fTxt: 'Polanco Benito Juarez, CDMX', // TODO: Poner dirección correcta
-                  fSize: 14.0
+                CustomText(
+                  fTxt: Destinos.listDestinos[index]["title"],
+                  fSize: 16.0,
+                  fWeight: 'Bold',
+                ),
+                const SizedBox(height: 7.0),
+                Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.pin_drop, color: th.primaryColor),
+                  CustomText(
+                    fTxt: _.gxAddressdDestino,
+                    fSize: 14.0
+                  )
+                ]
                 )
               ]
-              )
-            ]
-          ),
+            ),
 
-          const SizedBox(height: 15.0),
-          _carouselImg(),
+            const SizedBox(height: 15.0),
+            _carouselImg(_.gxSwiperCtrl),
 
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.watch_later, size: 22.0, color: th.primaryColor),
-              const SizedBox(width: 8.0),
-              const CustomText(
-                fTxt: 'Abierto de',
-                fSize: 15.0
-              )
-            ]
-          ),
-          CustomText(
-            fTxt: Destinos.listDestinos[index]["day_open"],
-            fSize: 14.0
-          ),
-          CustomText(
-            fTxt: Destinos.listDestinos[index]["hour_open"],
-            fSize: 14.0
-          ),
-          const SizedBox(height: 15.0),
-        ]
-      )
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.watch_later, size: 22.0, color: th.primaryColor),
+                const SizedBox(width: 8.0),
+                const CustomText(
+                  fTxt: 'Abierto de',
+                  fSize: 15.0
+                )
+              ]
+            ),
+            CustomText(
+              fTxt: Destinos.listDestinos[index]["day_open"],
+              fSize: 14.0
+            ),
+            CustomText(
+              fTxt: Destinos.listDestinos[index]["hour_open"],
+              fSize: 14.0
+            ),
+            const SizedBox(height: 15.0),
+          ]
+        )
+      ),
     );
   }
 
-  Widget _carouselImg() {
-
-  final SwiperController _swiperController     = SwiperController();
-
+  Widget _carouselImg(SwiperController _swiperController) {
     return SizedBox(
       height: utils.porcientoH(Get.context, 30.0),
       width: double.infinity,
@@ -201,9 +200,9 @@ class DetailDestinoPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-    
+
             const SizedBox(height: 10.0),
-    
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

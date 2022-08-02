@@ -10,18 +10,18 @@ class PushNotificationsServices {
   static final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   static Future<void> _onBackgroundHandler(RemoteMessage _message) async {
-    print('--> 📲📲📲 Notificación: ');
-    print('_onBackgroundHandler: ${_message.messageId}');
+    utils.msginfo('--> 📲📲📲 Notificación: ');
+    utils.msginfo('_onBackgroundHandler: ${_message.messageId}');
   }
 
   static Future<void> _onMessageHandler(RemoteMessage _message) async {
-    print('--> 📲 📲 📲 Notificación: App Primero Plano');
-    print('_onMessageHandler: ${_message.messageId}');
+    utils.msginfo('--> 📲 📲 📲 Notificación: App Primero Plano');
+    utils.msginfo('_onMessageHandler: ${_message.messageId}');
   }
 
   static Future<void> _onMessageOpenApp(RemoteMessage _message) async {
-    print('--> 📲📲📲 Notificación: ');
-    print('_onMessageOpenApp: ${_message.messageId}');
+    utils.msginfo('--> 📲📲📲 Notificación: ');
+    utils.msginfo('_onMessageOpenApp: ${_message.messageId}');
   }
 
   static Future initNotification() async {
@@ -37,7 +37,7 @@ class PushNotificationsServices {
       criticalAlert: false
     );
     utils.msginfo('User granted permission: ${_permission.authorizationStatus}');
-    
+
 
     final _tokenDevice = await _firebaseMessaging.getToken();
     _globalPrefs.tokenDevice = _tokenDevice;
@@ -49,7 +49,7 @@ class PushNotificationsServices {
     } catch (e) {
       utils.msginfo(e);
     }
-    
+
     FirebaseMessaging.onBackgroundMessage(_onBackgroundHandler);
     FirebaseMessaging.onMessage.listen(_onMessageHandler);
     FirebaseMessaging.onMessageOpenedApp.listen(_onMessageOpenApp);

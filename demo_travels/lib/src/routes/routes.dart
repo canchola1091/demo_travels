@@ -2,7 +2,6 @@
 
 import 'package:demo_travels/src/pages/clima/clima_page.dart';
 import 'package:demo_travels/src/pages/destinos/destinos_page.dart';
-import 'package:demo_travels/src/pages/destinos/detail_destino.dart';
 import 'package:demo_travels/src/pages/home/home_page.dart';
 import 'package:demo_travels/src/pages/login/login_page.dart';
 import 'package:demo_travels/src/pages/settings/settings_page.dart';

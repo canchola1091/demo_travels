@@ -1,4 +1,5 @@
 
+import 'package:demo_travels/src/data/global_preferences.dart';
 import 'package:demo_travels/src/models/clima_model.dart';
 import 'package:demo_travels/src/services/clima_services.dart';
 import 'package:geocoding/geocoding.dart';
@@ -7,6 +8,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 class Climacontroller extends GetxController {
 
+  final GlobalPreferences _globalPreferences = GlobalPreferences();
   late double _latitude;
   late double _longitude;
   String _address = '';
@@ -14,21 +16,16 @@ class Climacontroller extends GetxController {
   bool _locationLoaded = false;
   late ClimaModel? _climaModel;
   bool _loadingClima = true;
-  bool _hasError = false;
 
   //? GETTERS
+  GlobalPreferences get gxGlobaPrefs => _globalPreferences;
   String get gxAddress         => _address;
   String get gxCountry         => _country;
   ClimaModel? get gxClimaModel => _climaModel;
   bool get gxLocationLoaded    => _locationLoaded;
   bool get gxLoadingClima      => _loadingClima;
-   
+
   //****************ESTADOS*******************
-  @override
-  void onInit() {
-    super.onInit();
-    // _handlerLocationService();
-  }
 
   @override
   void onReady() {
@@ -36,15 +33,13 @@ class Climacontroller extends GetxController {
     _handlerLocationService();
   }
 
-  // @override
-  // void onClose() {
-  //   super.onClose();
-  // }
   //*****************************************
 
-  // TODO: Agregar descripción
+  //==========================================================
+  /// MANEJA LOS PERSMISOS AL SOLICITAR LA UBICACIÓN DEL DISPOSITIVO
+  //==========================================================
   Future<void> _handlerLocationService() async {
-    
+
     late bool _serviceEnabled;
     late LocationPermission _permission;
 
@@ -52,8 +47,7 @@ class Climacontroller extends GetxController {
 
     if(!_serviceEnabled) {
       await Geolocator.openLocationSettings();
-      print('--> 😨 La ubicación está desactivada');
-      // return Future.error('La ubicación está desactivada');
+      // print('--> 😨 La ubicación está desactivada');
     }
 
     _permission = await Geolocator.checkPermission();
@@ -61,20 +55,21 @@ class Climacontroller extends GetxController {
     if(_permission == LocationPermission.denied) {
       _permission = await Geolocator.requestPermission();
       if(_permission == LocationPermission.denied) {
-        print('--> 😡 Los permisos de ubicación fueron denegados');
-        return Future.error('Los permisos de ubicación fueron denegados');
+        // print('--> 😡 Los permisos de ubicación fueron denegados');
       }
     }
 
     if(_permission == LocationPermission.deniedForever) {
-      print('--> ❌ Los permisos de ubicación fueron denegados permanetemente');
-      return Future.error('Los permisos de ubicación fueron denegados permanetemente');
+      // print('--> ❌ Los permisos de ubicación fueron denegados permanetemente');
     }
 
     _getLocation();
 
   }
 
+  //==========================================================
+  /// OBTIENE LA UBICACIÓN DEL DISPOSITIVO
+  //==========================================================
   Future<void> _getLocation() async {
     Position _position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     _latitude = _position.latitude;
@@ -82,28 +77,28 @@ class Climacontroller extends GetxController {
     await _getAddressFromLatLong(_position);
     _locationLoaded = true;
     if(_locationLoaded) gxGetClima();
-    print('--> Latitud: $_latitude');
-    print('--> Longitud: $_longitude');
+    // print('--> Latitud: $_latitude');
+    // print('--> Longitud: $_longitude');
   }
 
-  // TODO: Agregar descripción
+  //==========================================================
+  /// OBTIENE LA DIRECCIÓN CON LAS COORDENADAS (LAT, LONG)
+  //==========================================================
   Future<void> _getAddressFromLatLong(Position position) async {
     final List<Placemark> _placeMark = await placemarkFromCoordinates(position.latitude, position.longitude);
 
     _address = '${_placeMark[0].subLocality} ,${_placeMark[0].locality}';
     _country = '${_placeMark[0].locality}';
-    print('--> Dirección $_address');
+    // print('--> Dirección $_address');
   }
 
   //==========================================================
   /// CONSUME ENDPOINT PARA OBTENER EL CLIMA
   //==========================================================
   Future<void> gxGetClima() async {
-    _climaModel = await ClimaServices().serviceGetClima(_latitude.toString(), _longitude.toString());    
-    if(_climaModel == null) _hasError = true;
+    _climaModel = await ClimaServices().serviceGetClima(_latitude.toString(), _longitude.toString());
     _loadingClima = false;
     update(['body-clima']);
-
   }
 
 }

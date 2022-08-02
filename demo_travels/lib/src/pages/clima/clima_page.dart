@@ -6,8 +6,6 @@ import 'package:demo_travels/src/widgets/text/custom_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:demo_travels/src/theme/theme.dart' as th;
-import 'package:demo_travels/src/utils/utils.dart' as utils;
-import 'package:http/http.dart';
 
 
 class ClimaPage extends StatelessWidget {
@@ -22,10 +20,7 @@ class ClimaPage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0.0,
-          leading: IconButton(
-            icon: const Icon(Icons.menu, size: 35.0, color: Colors.black),
-            onPressed: () {}, 
-          ),
+          leading: const Icon(Icons.menu, size: 35.0, color: Colors.black),
           title: CustomText(
             fTxt: 'Bienvenido Eduardo',
             fSize: 16.0,

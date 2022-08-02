@@ -39,16 +39,15 @@ final String _keyServer = 'AAAAkR-vuF8:APA91bEu2vbwj2mJ9P7vAnX-ZPZ9wAVoqDouKwlQh
         "sound": "default"
       }
     };
-    print('--> Body $_mapBody');
     final _url = Uri.tryParse('https://fcm.googleapis.com/fcm/send');
     try {
-      final _resp = await http.post( 
+      final _resp = await http.post(
         _url!,
         headers: utils.authorization(_keyServer),
         body: jsonEncode(_mapBody)
       );
-      print('--> Resp: ${_resp.body}');
-      print('--> Status: ${_resp.statusCode}');
+      // print('--> Resp: ${_resp.body}');
+      // print('--> Status: ${_resp.statusCode}');
       if(_resp.statusCode == 200) {
         Get.offAllNamed('/login_page');
         SnackNotification.snackNoti(_title, _bodyMessage);
@@ -58,7 +57,6 @@ final String _keyServer = 'AAAAkR-vuF8:APA91bEu2vbwj2mJ9P7vAnX-ZPZ9wAVoqDouKwlQh
       }
     } catch (e) {
       utils.msgerror('--> CATCH: $e');
-      // return null;
     }
   }
 

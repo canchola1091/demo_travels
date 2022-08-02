@@ -22,18 +22,14 @@ class LoginController extends GetxController {
   GlobalKey<FormState> get gxloginFormKey  => _loginFormkey;
   bool get gxHidePass                      => _hidePass;
 
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    print(_globalPreferences.userEmail);
-  }
-
+  //****************ESTADOS*******************
   @override
   void onClose() {
     _emailCtrl.dispose();
     _passWordCtrl.dispose();
     super.onClose();
   }
+  //*****************************************
 
   //==========================================================
   /// OCULTA Y MUESTRA LA CONTRASEÑA DEL CAMPO PASSWORD
@@ -47,30 +43,22 @@ class LoginController extends GetxController {
   /// INICIO DE SESIÓN CON FIREBASE
   //==========================================================
   Future<void> fnLogin() async{
-    
+
     final bool _isValidForm = _loginFormkey.currentState!.validate();
-    
+
     utils.msginfo('Iniciando Sesión...');
 
     if(_isValidForm) {
 
       if(_emailCtrl.text.trim() != _globalPreferences.userEmail && !_globalPreferences.isFisrtLogin) {
-        print('--> No es primer login');
         SimpleAlert().cAlert('Upss!!!', 'Correo electrónico incorrecto.\n\nPor favor verifica tus datos');
       }else {
-        // Get.offAllNamed('/home_page');
-        print('--> Primer login');
         _globalPreferences.userEmail = _emailCtrl.text.trim();
         Get.offAllNamed('/home_page');
       }
-      
-      // print('--> Primer login');
-      // _globalPreferences.userEmail = _emailCtrl.text.trim();
-      // Get.offAllNamed('/home_page');
-      
     } else {
       SnackBarAlert.cSnackBar(Icons.warning, 'Formulario invalido');
     }
   }
-  
+
 }
